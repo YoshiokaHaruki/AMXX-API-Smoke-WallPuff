@@ -14,6 +14,7 @@ new const EntityWallPuffClassname[ ] =		"ent_smokepuff_x";
 #define LOWER_LIMIT_OF_ENTITIES				100
 
 #define Vector3(%0)							Float: %0[ 3 ]
+#define IsNullString(%0)					bool: ( %0[ 0 ] == EOS )
 
 #define var_max_frame						var_yaw_speed // CEntity: env_sprite
 #define var_last_time						var_pitch_speed // CEntity: env_sprite
@@ -43,7 +44,11 @@ CSmokeWallPuff__SpawnEntity( const Vector3( vecEnd ), const Vector3( vecPlaneNor
 	if ( iMaxEntities - engfunc( EngFunc_NumberOfEntities ) <= LOWER_LIMIT_OF_ENTITIES )
 		return NULLENT;
 
-	new pSprite = rg_create_entity( "env_sprite" );
+	static szEntityReference[ 16 ]; 
+	if ( !IsNullString( szEntityReference ) ) 
+		szEntityReference = "env_sprite";
+
+	new pSprite = rg_create_entity( szEntityReference );
 	if ( is_nullent( pSprite ) )
 		return NULLENT;
 
