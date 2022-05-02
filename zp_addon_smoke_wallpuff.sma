@@ -33,7 +33,7 @@ public plugin_precache( )
 public RG_CSGameRules__CleanUpMap_Post( )
 {
 	new pEntity = NULLENT;
-	while ( ( pEntity = fm_find_ent_by_class( pEntity, EntityWallPuffClassname ) ) )
+	while ( ( pEntity = fm_find_ent_by_class( pEntity, EntityWallPuffClassname ) ) > 0 )
 		UTIL_KillEntity( pEntity );
 }
 
