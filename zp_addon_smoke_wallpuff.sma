@@ -11,8 +11,6 @@ public stock const PluginAuthor[ ] =		"Yoshioka Haruki";
 new const EntityWallPuffClassname[ ] =		"ent_smokepuff_x";
 
 /* ~ [ Macroses ] ~ */
-#define LOWER_LIMIT_OF_ENTITIES				100
-
 #define Vector3(%0)							Float: %0[ 3 ]
 #define IsNullString(%0)					bool: ( %0[ 0 ] == EOS )
 
@@ -40,14 +38,13 @@ public RG_CSGameRules__CleanUpMap_Post( )
 /* ~ [ Other ] ~ */
 CSmokeWallPuff__SpawnEntity( const Vector3( vecEnd ), const Vector3( vecPlaneNormal ), const Float: flScale = 0.5, const Float: flColor[ 3 ] = { 40.0, 40.0, 40.0 } ) 
 {
+	static const LOWER_LIMIT_OF_ENTITIES = 100;
+
 	static iMaxEntities; if ( !iMaxEntities ) iMaxEntities = global_get( glb_maxEntities );
 	if ( iMaxEntities - engfunc( EngFunc_NumberOfEntities ) <= LOWER_LIMIT_OF_ENTITIES )
 		return NULLENT;
 
-	static szEntityReference[ 16 ]; 
-	if ( !IsNullString( szEntityReference ) ) 
-		szEntityReference = "env_sprite";
-
+	static const szEntityReference[ ] = "env_sprite"; 
 	new pSprite = rg_create_entity( szEntityReference );
 	if ( is_nullent( pSprite ) )
 		return NULLENT;
