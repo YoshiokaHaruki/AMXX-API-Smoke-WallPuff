@@ -1,5 +1,5 @@
 # AMXX API Smoke WallPuff
-API Plugin for add Smoke WallPuff (Like original) in Counter Strike 1.6 (based on ReAPI)
+API Plugin for add Smoke WallPuff (Like original) in Counter Strike 1.6
 
 ---
 ### Requirements
