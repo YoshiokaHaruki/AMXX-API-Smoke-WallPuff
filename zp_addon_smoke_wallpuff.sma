@@ -1,5 +1,5 @@
 public stock const PluginName[ ] =			"[API] Addon: Smoke WallPuff";
-public stock const PluginVersion[ ] =		"1.1";
+public stock const PluginVersion[ ] =		"1.1.1";
 public stock const PluginAuthor[ ] =		"Yoshioka Haruki";
 
 /* ~ [ Includes ] ~ */
@@ -34,8 +34,6 @@ public stock const PluginAuthor[ ] =		"Yoshioka Haruki";
 
 	#define rg_create_entity				fm_create_entity
 	#define is_nullent(%0)					( %0 == NULLENT || pev_valid( %0 ) != PDATA_SAFE )
-
-	new gl_iszAllocString_SmokeKey;
 #endif
 
 /* ~ [ Plugin Settings ] ~ */
@@ -47,6 +45,9 @@ new const EntityWallPuffSprites[ ][ ] = {
 	"sprites/wall_puff3.spr",
 	"sprites/wall_puff4.spr"
 };
+
+/* ~ [ Params ] ~ */
+new gl_iszAllocString_SmokeKey;
 
 /* ~ [ Macroses ] ~ */
 #define Vector3(%0)							Float: %0[ 3 ]
@@ -62,10 +63,8 @@ public plugin_precache( )
 	for ( new iFile = 0; iFile < sizeof EntityWallPuffSprites; iFile++ )
 		engfunc( EngFunc_PrecacheModel, EntityWallPuffSprites[ iFile ] );
 
-	#if !defined _reapi_included
-		/* -> Alloc String -> */
-		gl_iszAllocString_SmokeKey = engfunc( EngFunc_AllocString, EntityWallPuffClassname );
-	#endif
+	/* -> Alloc String -> */
+	gl_iszAllocString_SmokeKey = engfunc( EngFunc_AllocString, EntityWallPuffClassname );
 }
 
 public plugin_init( )
@@ -114,11 +113,8 @@ CSmokeWallPuff__SpawnEntity( const Vector3( vecEnd ), const Vector3( vecPlaneNor
 	static Vector3( vecEndPos ); xs_vec_add_scaled( vecEnd, vecPlaneNormal, 3.0, vecEndPos );
 	static Vector3( vecDirectory ); xs_vec_mul_scalar( vecPlaneNormal, random_float( 25.0, 30.0 ), vecDirectory );
 
-	#if !defined _reapi_included
-		set_entvar( pSprite, var_impulse, gl_iszAllocString_SmokeKey );
-	#endif
-
 	set_entvar( pSprite, var_classname, EntityWallPuffClassname );
+	set_entvar( pSprite, var_impulse, gl_iszAllocString_SmokeKey );
 	set_entvar( pSprite, var_movetype, MOVETYPE_NOCLIP );
 
 	set_entvar( pSprite, var_framerate, 30.0 );
